@@ -1,5 +1,4 @@
 var searchButton = document.getElementById("search");
-var userInfo = document.getElementById("user-info");
 var userImage = document.getElementById("user-image");
 
 document.getElementById("name").onkeydown = function (e) {
@@ -9,7 +8,8 @@ document.getElementById("name").onkeydown = function (e) {
 };
 
 searchButton.addEventListener("click", function () {
-    userInfo.innerHTML = "";
+    // userInfo.innerHTML = "";
+    document.getElementById("user-info").style.display = "block";
     userImage.innerHTML = "";
     var name = document.getElementById("name");
     var http = new XMLHttpRequest();
@@ -32,7 +32,12 @@ searchButton.addEventListener("click", function () {
                 }
 
                 // Push the thumbnail src in the array
-                userImage.innerHTML += `<img src=${node.thumbnail_src} width="200px" height="200px">`;
+                userImage.innerHTML += `
+                    <div class="gallery-item" tabindex="0">
+                        <img src=${node.thumbnail_src} class="gallery-image" alt="">
+                    </div>
+                `;
+                console.log(node.thumbnail_src);
             }
         }
     }
@@ -47,16 +52,24 @@ searchButton.addEventListener("click", function () {
         for (meta of metaTags) {
             og = meta.getAttribute("property");
             if (og == "og:title") {
-                userInfo.innerHTML += `<h2>${meta.getAttribute("content").replace(/• Instagram photos and videos/, "")}</h2>`;
+                var userName = meta.getAttribute("content").match(/(@)([A-Za-z]+[^)])/)[2];
+                document.getElementById("profile-user-name").innerHTML = userName;
+                document.getElementsByClassName("profile-real-name")[0].innerHTML = userName;
             }
             else if (og == "og:image") {
-                userInfo.innerHTML += `<img src=${meta.getAttribute("content")}>`;
+                document.getElementById("profile-image").innerHTML = `<img src=${meta.getAttribute("content")}>`;
             }
             else if (og == "og:description") {
-                userInfo.innerHTML += `<p>${meta.getAttribute("content")}</p>`;
+                // userInfo.innerHTML += `<p>${meta.getAttribute("content")}</p>`;
+                var followers = meta.getAttribute("content").match(/([0-9]{1,7}) (Followers)/)[1];
+                var following = meta.getAttribute("content").match(/([0-9]{1,7}) (Following)/)[1];
+                var posts = meta.getAttribute("content").match(/([0-9]{1,7}) (Posts)/)[1];
+                document.getElementsByClassName("profile-stat-count")[0].innerHTML = posts;
+                document.getElementsByClassName("profile-stat-count")[1].innerHTML = followers;
+                document.getElementsByClassName("profile-stat-count")[2].innerHTML = following;
             }
             else if (og == "og:url") {
-                userInfo.innerHTML += `<a href=${meta.getAttribute("content")} target="_blank">user profile</a>`;
+                // userInfo.innerHTML += `<a href=${meta.getAttribute("content")} target="_blank">user profile</a>`;
             }
         }
     }

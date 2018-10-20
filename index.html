@@ -5,14 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>User info Instagram</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v1">
 </head>
 <body>
-    <input type="text" id="name" value="kogoskun">
-    <button id="search">Search</button>
+    <div class="search-container">
+        <input type="text" id="name" placeholder="Search">
+        <!-- <input title="Search" value="Search" type="submit" id="search"> -->
+        <a href="#" id="search"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
+    </div>
 
-    <div id="user-info"></div>
-    <div id="user-image"></div>
+    <div id="user-info">
+        <header>
+            <div class="container">
+                <div class="profile">
+                    <div class="profile-image" id="profile-image"></div>
+                    <div class="profile-user-settings">
+        
+                        <h1 class="profile-user-name" id="profile-user-name"></h1>
+        
+                        <button class="btn profile-edit-btn">Edit Profile</button>
+        
+                        <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+                    </div>
+        
+                    <div class="profile-stats">
+                        <ul>
+                            <li><span class="profile-stat-count"></span> posts</li>
+                            <li><span class="profile-stat-count"></span> followers</li>
+                            <li><span class="profile-stat-count"></span> following</li>
+                        </ul>
+                    </div>
+        
+                    <div class="profile-bio">
+                        <p><span class="profile-real-name"></span> Hello world📷✈️🏕️</p>
+                    </div>
+        
+                </div>
+            </div>
+        </header>
+
+        <!-- Gallery -->
+        <main>
+            <div class="container">
+                <div class="gallery" id="user-image"></div>
+                <div class="loader"></div>
+            </div>
+        </main>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
