@@ -49,9 +49,16 @@ searchButton.addEventListener("click", function () {
                 document.getElementById("profile-image").innerHTML = `<img src=${meta.getAttribute("content")}>`;
             }
             else if (og == "og:description") {
-                var followers = meta.getAttribute("content").match(/([0-9]{1,7}) (Followers)/)[1];
-                var following = meta.getAttribute("content").match(/([0-9]{1,7}) (Following)/)[1];
-                var posts = meta.getAttribute("content").match(/([0-9]{1,7}) (Posts)/)[1];
+                var description = meta.getAttribute("content");
+                if (/^[0-9]{1,5}/.test(description)) {
+                    var followers = meta.getAttribute("content").match(/([0-9]{1,7}) (Followers)/)[1];
+                    var following = meta.getAttribute("content").match(/([0-9]{1,7}) (Following)/)[1];
+                    var posts = meta.getAttribute("content").match(/([0-9]{1,7}) (Posts)/)[1];
+                } else {
+                    var followers = meta.getAttribute("content").match(/(ผู้ติดตาม) ([0-9]{1,7})/)[2];
+                    var following = meta.getAttribute("content").match(/(กำลังติดตาม) ([0-9]{1,7})/)[2];
+                    var posts = meta.getAttribute("content").match(/(โพสต์) ([0-9]{1,7})/)[2];
+                }
                 document.getElementsByClassName("profile-stat-count")[0].innerHTML = posts;
                 document.getElementsByClassName("profile-stat-count")[1].innerHTML = followers;
                 document.getElementsByClassName("profile-stat-count")[2].innerHTML = following;
